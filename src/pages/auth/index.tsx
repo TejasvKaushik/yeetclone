@@ -7,6 +7,13 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRecoilValue } from 'recoil';
 import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import { Autoplay } from 'swiper/modules';
+
+const gifs = ['/Ao.gif', '/Co.gif'];
+
 
 type AuthPageProps = {
     
@@ -24,12 +31,23 @@ const AuthPage:React.FC<AuthPageProps> = () => {
     }, [user, router, loading]);
 
     if(pageLoading) return null;
-    return <div className="bg-gradient-to-b from-gray-600 to-black h-screen relative">
+    return <div className="bg-dark-layer-2  h-screen relative">
         <div className='max-w-7xl mx-auto'>
             <Navbar />
-            <div className='flex items-center justify-center h-[calc(100vh-5rem)] pointer-events-none select-none'>
-                <Image src='/hero.png' alt='Hero img' width={700} height={700} />
-            </div>
+            <Swiper
+                        spaceBetween={10}
+                        slidesPerView={1}
+                        loop={true}
+                        autoplay={{ delay: 5000, disableOnInteraction: false }}
+                        modules={[Autoplay]}
+                        className="w-[500px] h-[500px]"
+                    >
+                        {gifs.map((gif, index) => (
+                            <SwiperSlide key={index}>
+                                <Image src={gif} alt={`Slide ${index}`} width={500} height={500} />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
             {authModal.isOpen && <AuthModal />}
         </div>
     </div>

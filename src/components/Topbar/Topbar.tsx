@@ -81,12 +81,17 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
         <div className="flex items-center space-x-4 flex-1 justify-end">
           <div>
             <a
-              href="https://www.buymeacoffee.com/burakorkmezz"
+              href="https://github.com/TejasvKaushik"
               target="_blank"
               rel="noreferrer"
-              className="bg-dark-fill-3 py-1.5 px-3 cursor-pointer rounded text-brand-orange hover:bg-dark-fill-2"
             >
-              Premium
+              <Image
+                src="/github-mark-white.svg"
+                alt="Github"
+                width={30}
+                height={30}
+                className="rounded-full"
+              />
             </a>
           </div>
 
