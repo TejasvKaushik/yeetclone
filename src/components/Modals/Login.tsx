@@ -24,7 +24,7 @@ const Login: React.FC<LoginProps> = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  const [signInWithGoogle] =
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
