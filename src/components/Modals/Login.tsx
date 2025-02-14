@@ -1,5 +1,6 @@
 import { authModalState } from "@/atoms/authModalAtom";
-import { auth } from "@/firebase/firebase";
+import { auth, firestore } from "@/firebase/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React, { use, useEffect, useState } from "react";
 import {
@@ -50,11 +51,37 @@ const Login: React.FC<LoginProps> = () => {
     try {
       const result = await signInWithGoogle();
       if (!result) return;
+  
+      const user = result.user;
+  
+      const userRef = doc(firestore, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+  
+      if (!userSnap.exists()) {
+        const userData = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName || "",
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+          likedProblems: [],
+          dislikedProblems: [],
+          solvedProblems: [],
+          starredProblems: [],
+        };
+        await setDoc(userRef, userData);
+      }
+  
       router.push("/");
     } catch (error: any) {
-      toast.error(error.message, { position: "top-center", autoClose: 3000, theme: "dark" });
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
   };
+  
 
   useEffect(() => {
     if (error) toast.error(error.message, { position: "top-center", autoClose: 3000, theme: "dark" });
