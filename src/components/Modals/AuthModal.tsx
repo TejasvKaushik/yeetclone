@@ -1,4 +1,4 @@
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import Login from "./Login";
 import Signup from "./Signup";

@@ -2,7 +2,7 @@ import { authModalState } from "@/atoms/authModalAtom";
 import { auth, firestore } from "@/firebase/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
@@ -24,7 +24,7 @@ const Login: React.FC<LoginProps> = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+  const [signInWithGoogle] =
     useSignInWithGoogle(auth);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
